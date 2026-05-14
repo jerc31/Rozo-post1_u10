@@ -11,12 +11,12 @@ plugins {
 
 android {
     namespace = "com.universidad.pipelineci_cd"
-    compileSdk = 34
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.universidad.pipelineci_cd"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
