@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+
+    id("com.google.gms.google-services")
     id("com.google.firebase.appdistribution")
     id("jacoco")
 }
@@ -8,7 +10,7 @@ plugins {
 android {
     namespace = "com.universidad.pipelineci_cd"
     compileSdk {
-        version = release(36) {
+        version = release(34) {
             minorApiLevel = 1
         }
     }
@@ -45,7 +47,7 @@ android {
 
     firebaseAppDistribution {
         releaseNotes = "Build automático desde CI/CD"
-        testers = "qa@equipo.com"
+        testers = "jhoseth331@gmail.com"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -71,19 +73,21 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         html.required.set(true)
     }
     val fileFilter = listOf("**/R.class", "**/R$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*")
-    val debugTree = fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+    val debugTree = fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/debug")) {
         exclude(fileFilter)
     }
     val mainSrc = "${project.projectDir}/src/main/java"
     sourceDirectories.setFrom(files(mainSrc))
     classDirectories.setFrom(files(debugTree))
-    executionData.setFrom(fileTree(project.buildDir) {
+    executionData.setFrom(fileTree(layout.buildDirectory) {
         include("jacoco/testDebugUnitTest.exec")
     })
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation("com.google.firebase:firebase-analytics")
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
@@ -91,6 +95,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

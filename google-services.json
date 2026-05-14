@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "645364981476",
+    "project_id": "pipelineci-cd",
+    "storage_bucket": "pipelineci-cd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645364981476:android:29f45329ddf65c6f7d56f1",
+        "android_client_info": {
+          "package_name": "com.universidad.pipelineci_cd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsZ6929BZ2YsYQDBDyZ_93WDs1Zvm9Yw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

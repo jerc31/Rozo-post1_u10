@@ -62,21 +62,20 @@ jobs:
         with:
           java-version: "17"
           distribution: temurin
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release-key.jks
           echo "KEYSTORE_PATH=$(pwd)/release-key.jks" >> $GITHUB_ENV
-      - name: Build Release APK
+      - name: Decode Play Credentials
+        run: |
+          echo "${{ secrets.PLAY_CREDENTIALS_BASE64 }}" | base64 -d > fastlane/google-play-credentials.json
+      - name: Run Fastlane beta
         env:
           KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASS: ${{ secrets.KEY_PASS }}
-        run: ./gradlew assembleRelease
-      - name: Distribute to Firebase
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          token: ${{ secrets.FIREBASE_TOKEN }}
-          groups: testers
-          file: app/build/outputs/apk/release/app-release.apk
-          releaseNotes: "Build ${{ github.run_number }} — ${{ github.sha }}"
+        run: bundle exec fastlane beta
