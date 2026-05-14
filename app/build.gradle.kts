@@ -40,7 +40,6 @@ android {
 
             firebaseAppDistribution {
                 releaseNotes = "Build automático desde CI/CD"
-                testers = "qa@equipo.com"
             }
         }
     }
