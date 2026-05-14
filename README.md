@@ -1,48 +1,55 @@
-# Pipeline CI/CD Android - Post-Contenido 1
+# Aplicaciones Móviles - Unidad 10: CI/CD, Publicación y Operación
+## Post-Contenido 1 - Ingeniería de Sistemas 2026
 
-Este proyecto implementa un pipeline de Integración y Despliegue Continuo (CI/CD) para una aplicación Android utilizando GitHub Actions y Firebase App Distribution.
+Este proyecto implementa un pipeline CI/CD completo para una aplicación Android usando GitHub Actions, incluyendo lint, pruebas unitarias, build del AAB/APK firmado y distribución automática a Firebase App Distribution.
 
 ## Flujo del Pipeline
 
-1.  **Lint y Pruebas Unitarias**: Se ejecuta el análisis de código (lint) y las pruebas unitarias.
-2.  **Reporte de Cobertura**: Se genera un reporte con JaCoCo.
-3.  **Quality Gate**: El pipeline falla si la cobertura de código es inferior al 60%.
-4.  **Build Firmado**: Se genera un APK de release firmado con un Keystore almacenado de forma segura.
-5.  **Distribución**: El APK se sube automáticamente a Firebase App Distribution para los testers.
+1.  **Lint**: Análisis estático de código.
+2.  **Pruebas Unitarias**: Ejecución de tests locales.
+3.  **Jacoco Report**: Generación de reportes de cobertura.
+4.  **Quality Gate**: Verificación de cobertura mínima (60%).
+5.  **Build Release**: Generación del APK firmado.
+6.  **Distribución**: Subida automática a Firebase App Distribution.
 
 ## Configuración de GitHub Secrets
 
-Para que el pipeline funcione, se deben configurar los siguientes secretos en el repositorio (Settings → Secrets and variables → Actions):
+Para el funcionamiento del pipeline, se configuraron los siguientes secretos en GitHub:
 
-*   `KEYSTORE_BASE64`: El contenido del archivo `.jks` codificado en Base64.
+*   `KEYSTORE_BASE64`: String Base64 del Keystore generado.
 *   `KEYSTORE_PASS`: Contraseña del Keystore.
-*   `KEY_ALIAS`: Alias de la llave.
+*   `KEY_ALIAS`: Alias definido al crear el Keystore.
 *   `KEY_PASS`: Contraseña del alias.
-*   `FIREBASE_APP_ID`: ID de la aplicación en Firebase.
-*   `FIREBASE_TOKEN`: Token de autenticación de Firebase (`firebase login:ci`).
+*   `FIREBASE_APP_ID`: App ID de Firebase.
+*   `FIREBASE_TOKEN`: Token de autenticación de Firebase CLI.
 
 ## Badge de Estado
-
-![Android CI/CD](https://github.com/jerc31/Rozo-post1_u10/actions/workflows/androidci.yml/badge.svg)
+[![Android CI/CD](https://github.com/jerc31/Rozo-post1_u10/actions/workflows/androidci.yml/badge.svg)](https://github.com/jerc31/Rozo-post1_u10/actions/workflows/androidci.yml)
 
 ---
 
-## Checkpoints
+## Checkpoints de la Actividad
 
 ### Checkpoint 1: Pipeline Básico Funcional
-*   Workflow en `.github/workflows/androidci.yml`.
-*   Secretos configurados.
-*   Job `lint-and-test` exitoso.
-> **[CAPTURA_CHECKPOINT_1_AQUÍ]**
+*   Workflow configurado en `.github/workflows/androidci.yml`.
+*   Secretos configurados en el repositorio.
+*   Job `lint-and-test` completado exitosamente.
+
+![Checkpoint 1](capturas/checkpoint1.png)
 
 ### Checkpoint 2: Build Firmado y Distribuido
-*   Job `build-and-distribute` ejecutado en `main`.
-*   APK firmado correctamente.
-*   Distribución en Firebase exitosa.
-> **[CAPTURA_CHECKPOINT_2_AQUÍ]**
+*   Job `build-and-distribute` ejecutado en la rama `main`.
+*   APK firmado verificado con `apksigner`.
+*   Distribución exitosa en la consola de Firebase.
+
+![Checkpoint 2](capturas/checkpoint2.png)
 
 ### Checkpoint 3: Quality Gate Configurado
-*   JaCoCo genera reportes HTML.
-*   Falla si la cobertura < 60%.
-*   Badge de estado en README.
-> **[CAPTURA_CHECKPOINT_3_AQUÍ]**
+*   Generación de reportes HTML de JaCoCo.
+*   Pipeline falla si la cobertura < 60%.
+*   Badge de estado funcional en el README.
+
+![Checkpoint 3](capturas/checkpoint3.png)
+
+---
+*Nota: Reemplace las imágenes en la carpeta `capturas/` con sus evidencias reales.*
