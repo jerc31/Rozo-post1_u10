@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    id("com.google.gms.google-services")
     id("com.google.firebase.appdistribution")
     id("jacoco")
 }
@@ -81,10 +80,6 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
-    implementation("com.google.firebase:firebase-config-ktx")
-    implementation("com.google.firebase:firebase-analytics:23.2.0")
-
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
