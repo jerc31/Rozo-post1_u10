@@ -1,4 +1,5 @@
 import com.google.firebase.appdistribution.gradle.firebaseAppDistribution
+import org.gradle.testing.jacoco.tasks.JacocoReport
 
 plugins {
     alias(libs.plugins.android.application)
@@ -73,8 +74,12 @@ tasks.register<JacocoReport>("jacocoTestReport") {
     val debugTree = fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/debug")) {
         exclude(fileFilter)
     }
-    val mainSrc = "${project.projectDir}/src/main/java"
-    sourceDirectories.setFrom(files(mainSrc))
+    val mainSrc = files(
+        "${project.projectDir}/src/main/java",
+        "${project.projectDir}/src/main/kotlin"
+    )
+
+    sourceDirectories.setFrom(mainSrc)
     classDirectories.setFrom(files(debugTree))
     executionData.setFrom(fileTree(layout.buildDirectory) {
         include("jacoco/testDebugUnitTest.exec")
